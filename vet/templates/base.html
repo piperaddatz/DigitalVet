@@ -68,7 +68,7 @@
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vet:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas-list' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
@@ -102,7 +102,7 @@
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="#"> <i class="fa fa-user-md" style="margin-right: 5px;"></i>Médicos</a>
+            <a class="nav-link" href="{% url 'vet:medicos-list' %}"> <i class="fa fa-user-md" style="margin-right: 5px;"></i>Médicos</a>
           </li>
           {% else %}
           {% endif %}
@@ -122,7 +122,7 @@
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="#"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínica</a>
+            <a class="nav-link" href="{% url 'vet:clinica-list' %}"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínica</a>
           </li>
           {% else %}
           {% endif %}
