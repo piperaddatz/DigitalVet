@@ -50,7 +50,7 @@
         {% if user.is_authenticated %}
           <!-- INICIO  (TODOS) -->
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:index' %}"> <i class="fa fa-home" style="margin-right: 5px;"></i> Inicio</a>
+            <a class="nav-link" href="{% url 'vet:index' %}"> <i class="fa fa-home" style="margin-right: 5px;"></i> Inicio</a>
           </li>
 
           <!-- MASCOTAS  (TODOS) -->
@@ -62,13 +62,13 @@
           {% endif %}
           {% if user.rol == 'medico' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
@@ -131,7 +131,7 @@
           <!-- EN CASO DE NO TENER SESIÓN ACTIVA -->
           <!-- INICIAR SESIÓN  (TODOS) -->
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:index' %}"> <i class="fa fa-home" style="margin-right: 5px;"></i> Inicio</a>
+            <a class="nav-link" href="{% url 'vet:index' %}"> <i class="fa fa-home" style="margin-right: 5px;"></i> Inicio</a>
           </li>
         {% endif %}
 
@@ -140,10 +140,10 @@
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
         <li class="nav-item borde-right">
-            <a class="nav-link" style="padding-right: 30px;" href="{% url 'users:perfil' %}"> <i class="fa fa-user" style="margin-right: 5px;"></i>Perfil</a>
+            <a class="nav-link" style="padding-right: 30px;" href="{% url 'vet:perfil' %}"> <i class="fa fa-user" style="margin-right: 5px;"></i>Perfil</a>
         </li>
         <li class="nav-item borde-right">
-            <a class="nav-link" style="padding-right: 30px;" href="{% url 'users:salir' %}"> <i class="fa fa-sign-out" style="margin-right: 5px;"></i>Salir</a>
+            <a class="nav-link" style="padding-right: 30px;" href="{% url 'vet:salir' %}"> <i class="fa fa-sign-out" style="margin-right: 5px;"></i>Salir</a>
         </li>
         {% else %}
         <li class="nav-item borde-right">
