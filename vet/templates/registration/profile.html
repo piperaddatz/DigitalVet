@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="margin-top: 60px;">
+    <div class="conteiner">
+          <h1>Perfil:</h1>
+          
+          <p>Email: {{ user.email }} </p>
+    </div>
+</div>
+
+  <section class="features-icons backg text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-dog m-auto text-primary"></i>
+            </div>
+            <h3>Veterinarios</h3>
+            <p class="lead mb-0">Almacena toda la informacion de tu veterinario de manera 100% digital</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-cat m-auto text-primary"></i>
+            </div>
+            <h3>Mascotas</h3>
+            <p class="lead mb-0">Revisa toda la informacion historica de tu mascota con unos pocos clicks </p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-crow m-auto text-primary"></i>
+            </div>
+            <h3>Informacion</h3>
+            <p class="lead mb-0">Revisa nuestro foro donde encontraras toda la informacion que necesitas para el cuodado de tu mascota</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
+
