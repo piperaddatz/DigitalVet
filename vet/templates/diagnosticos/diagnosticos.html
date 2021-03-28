@@ -9,7 +9,7 @@
         <div class="container" style="height: 50px;">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Mascotas</h1>
+                    <h1 class="mb-5">Listado de Diagnosticos</h1>
                 </div>
             </div>
         </div>
@@ -21,21 +21,21 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Image</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Raza</th>
-                    <th scope="col">Especie</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Medico</th>
+                    <th scope="col">Clinica</th>
+                    <th scope="col">Ver Descripción</th>
                 </tr>
             </thead>
             <tbody>
-                {% for mascota in mascotas %}
+                {% for diagnostico in diagnosticos %}
                 <tr>
-                    <th scope="row">{{ mascota.id }}</th>
-                    <td><img src="{{mascota.profile_pic.url}}" width="80" height="80"  alt="" class="img-fluid radio"></td>
-                    <td>{{ mascota.nombre }}</td>
-                    <td>{{ mascota.raza }}</td>
-                    <td>{{ mascota.especie }}</td>
+                    <th scope="row">{{ diagnostico.id }}</th>
+                    <td>{{ diagnostico.mascota.nombre }}</td>
+                    <td>{{ diagnostico.titulo }}</td>
+                    <td>{{ diagnostico.usuario}}</td>
+                    <td>{{ diagnostico.clinica}}</td>
                     <td>
                         {% if user.rol == 'admin'  %}
                         <a class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
@@ -43,7 +43,7 @@
                         {% endif %}
 
                         {% if user.rol == 'cliente'  %}
-                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-list' mascota.id %}"><i class="fa fa-file"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-detalle' diagnostico.id %}"><i class="fa fa-eye"></i></a>
                         {% endif %}
 
 

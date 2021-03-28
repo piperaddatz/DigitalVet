@@ -56,13 +56,13 @@
           <!-- MASCOTAS  (TODOS) -->
           {% if user.rol == 'cliente' %}
           <li class="nav-item">
-            <a class="nav-link" href="/mismascotas"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas-cliente' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
           {% if user.rol == 'medico' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vet:mascotas' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas-list' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
@@ -140,7 +140,7 @@
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
         <li class="nav-item borde-right">
-            <a class="nav-link" style="padding-right: 30px;" href="{% url 'vet:perfil' %}"> <i class="fa fa-user" style="margin-right: 5px;"></i>Perfil</a>
+            <a class="nav-link" style="padding-right: 30px;" href="{% url 'vet:perfil' %}"> <i class="fa fa-user" style="margin-right: 5px;"></i>{{user.email}} - {{user.rol}}</a>
         </li>
         <li class="nav-item borde-right">
             <a class="nav-link" style="padding-right: 30px;" href="{% url 'vet:salir' %}"> <i class="fa fa-sign-out" style="margin-right: 5px;"></i>Salir</a>
