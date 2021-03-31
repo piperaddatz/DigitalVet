@@ -8,7 +8,9 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
+                    {% if user.profile_pic %}
                     <img src="{{user.profile_pic.url}}" height="140" width="140" class="radius" alt="User-Profile-Image">
+                    {% endif %}
                     <div class="file btn btn-lg btn-primary">
                         Change Photo
                         <input type="file" name="file"/>
@@ -146,15 +148,16 @@
                         </div>
                     </div>
                 </div>
+                {% if user.rol == 'medico' %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'vet:mascotas-crear' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Crear Mascota</a>
+                </li>
+                {% endif %}
             </div>
         </div>
     </form>           
 
-    {% if user.rol == 'medico' %}
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'vet:mascotas-crear' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Crear Mascota</a>
-    </li>
-    {% endif %}
+
 </div>
 
 

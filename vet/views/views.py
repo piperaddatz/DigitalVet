@@ -4,6 +4,8 @@ from ..forms import CustomUserCreationForm, MascotaForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 
@@ -32,10 +34,15 @@ def mascotasCrear(request):
      
     if request.method == 'POST':
         if form.is_valid():
-            mascota = form.save(commit=False)
-            mascota.user = requestuser
-            mascota.save()
-            return redirect('index')    
+
+            new_mascot = Mascota.objects.create(
+                    user_id = User.objects.get(pk=request.user.id),
+                    nombre = form.cleaned_data["nombre"],
+                    especie = form.cleaned_data["especie"],
+                    raza = form.cleaned_data["raza"],
+                )
+            new_mascot.save()
+            return render(request, 'index.html', {})   
 
         else:
             form = MascotaForm()

@@ -31,8 +31,13 @@
             <tbody>
                 {% for mascota in mascotas %}
                 <tr>
+                    
                     <th scope="row">{{ mascota.id }}</th>
+                    {% if mascota.profile_pic %}
                     <td><img src="{{mascota.profile_pic.url}}" width="80" height="80"  alt="" class="img-fluid radio"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>{{ mascota.nombre }}</td>
                     <td>{{ mascota.raza }}</td>
                     <td>{{ mascota.especie }}</td>
