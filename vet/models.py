@@ -31,7 +31,7 @@ class Clinica(models.Model):
     email = models.EmailField(max_length=50) 
     fono = models.CharField(max_length=15) 
     profile_pic = models.ImageField() 
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self): 
         return self.nombre 
@@ -43,7 +43,7 @@ class Mascota(models.Model):
     raza = models.CharField(max_length=255)
     profile_pic = models.ImageField(upload_to='mascot_profile', blank=True)
     user_id = models.ForeignKey('vet.CustomUser',on_delete=models.CASCADE)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nombre
@@ -53,7 +53,7 @@ class Trabaja(models.Model):
     fecha = models.DateField() 
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
     clinica = models.ForeignKey(Clinica, on_delete=models.CASCADE) 
-    created_at = models.DateField()  
+    created_at = models.DateField(auto_now_add=True)  
 
     def __str__(self): 
         return "Médico trabajador" 
@@ -65,7 +65,7 @@ class Diagnostico(models.Model):
     mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE) 
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
     clinica = models.ForeignKey(Clinica, on_delete=models.CASCADE) 
-    created_at = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
  
     def __str__(self): 
         return self.titulo     

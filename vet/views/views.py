@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .. import forms
-from ..forms import CustomUserCreationForm
+from django import forms
+from ..forms import CustomUserCreationForm, MascotaForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -19,6 +19,29 @@ def mascotasListado(request):
     print("USUARIO:", request.user.rol)
 
     return render(request, 'mascotas/listado.html', {"mascotas":mascotas})
+
+
+def mascotasCrear(request):
+    
+    form = MascotaForm(request.POST)
+
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+            mascota = form.save(commit=False)
+            mascota.user = requestuser
+            mascota.save()
+            return redirect('index')    
+
+        else:
+            form = MascotaForm()
+
+    
+    return render(request, 'mascotas/crear.html', {'form':form})
 
 
 def mascotaCliente(request):
@@ -51,6 +74,8 @@ def medicosListado(request):
     print("USUARIO:", request.user.rol)
 
     return render(request, 'medicos/listado.html', {"users":users})
+
+    
 
 
 

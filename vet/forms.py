@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from django import forms
-from .models import CustomUser
-
 from . import models
+from .models import CustomUser, Mascota
+
+
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -17,6 +18,19 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('email', 'username', 'rol')
+
+
+class MascotaForm(forms.ModelForm):
+    class Meta:
+        model = Mascota
+        fields = ('nombre', 'especie', 'raza')
+        
+
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['nombre'].label = 'Nombre de la mascota:'
+        self.fields['especie'].label = 'Especie:'
+        self.fields['raza'].label = 'Raza:'
 
 
 
