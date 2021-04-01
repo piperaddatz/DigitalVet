@@ -9,7 +9,7 @@
         <div class="container" style="height: 50px;">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Crear Mascotas</h1>
+                    <h1 class="mb-5">Crear Mascota</h1>
                 </div>
             </div>
         </div>
@@ -19,18 +19,49 @@
 
         <div class="container">
             <h4>Nueva Mascota</h4>
-            </div>
-            
-            <div class="container">
-            <h4>Hola {{ user.username }}</h4><br>
-            </div>
-            
-              <form method="POST" action="#" id="groupForm">
-                  {% csrf_token %}
-                  {{ form.as_p }}
-                  <input type="submit" value="Create" class="btn btn-primary btn-large">
-              </form>
-           
+
+            <!--
+            <form method="POST" action="#" id="groupForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Create" class="btn btn-primary btn-large">
+            </form>-->
+
+            <form method="POST" action="#" id="groupForm">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="nombre">Especie</label>
+                            <input type="text" class="form-control" name="especie" placeholder="Especie...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="nombre">Raza</label>
+                            <input type="text" class="form-control" name="raza" placeholder="Raza...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="profile_pic">Foto</label>
+                            <input type="file" class="form-control" name="profile_pic">
+                        </div>
+                    </div>
+                </div>
+
+
+                <input type="submit" value="Crear" class="btn btn-primary btn-large">
+            </form>
+
+        </div>
 
     </div>
 </body>

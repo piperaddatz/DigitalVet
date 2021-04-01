@@ -62,13 +62,13 @@
           {% endif %}
           {% if user.rol == 'medico' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vet:mascotas-list' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas-list' 'id' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vet:mascotas-list' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
+            <a class="nav-link" href="{% url 'vet:mascotas-list' 'id' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Mascotas</a>
           </li>
           {% else %}
           {% endif %}

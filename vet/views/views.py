@@ -12,23 +12,21 @@ User = get_user_model()
 def index(request):
     return render(request, 'index.html', {})
 
-
-def mascotasListado(request):
-    mascotas = Mascota.objects.all()
+def mascotasListado(request, sort):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    print("USUARIO:", request.user.rol)
+    # sort = id, nombre, raza, especie
+    mascotas = Mascota.objects.order_by(sort)
 
     return render(request, 'mascotas/listado.html', {"mascotas":mascotas})
 
 
 def mascotasCrear(request):
-    
-    form = MascotaForm(request.POST)
-
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
+
+    form = MascotaForm(request.POST)
 
     print("USUARIO:", request.user.rol)
      
@@ -40,16 +38,51 @@ def mascotasCrear(request):
                     nombre = form.cleaned_data["nombre"],
                     especie = form.cleaned_data["especie"],
                     raza = form.cleaned_data["raza"],
+                    profile_pic = form.cleaned_data["profile_pic"],
                 )
             new_mascot.save()
-            return render(request, 'index.html', {})   
+            #return render(request, 'index.html', {})   
+            return redirect('/mascotas/listado/id')
+
+        else:
+            form = MascotaForm()
+
+    return render(request, 'mascotas/crear.html', { 'form': form })
+
+def mascotasEditar(request, idMascota):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    mascotaFound = Mascota.objects.get(id=idMascota)
+    
+    form = MascotaForm(request.POST)
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+
+            mascotaFound.nombre = form.cleaned_data["nombre"]
+            mascotaFound.especie = form.cleaned_data["especie"]
+            mascotaFound.raza = form.cleaned_data["raza"]
+
+            mascotaFound.save()
+ 
+            return redirect('/mascotas/listado/id')
 
         else:
             form = MascotaForm()
 
     
-    return render(request, 'mascotas/crear.html', {'form':form})
+    return render(request, 'mascotas/editar.html', { 'form': form, 'mascota': mascotaFound })
 
+
+def mascotasEliminar(request, idMascota):
+    mascotaFound = Mascota.objects.get(id=idMascota)
+
+    mascotaFound.delete()
+
+    return redirect('/mascotas/listado/id')
 
 def mascotaCliente(request):
     mascotas = Mascota.objects.filter(user_id=request.user.id)
@@ -58,7 +91,7 @@ def mascotaCliente(request):
 
     print("USUARIO:", request.user.rol)
 
-    return render(request, 'mascotas/listado.html', {"mascotas":mascotas})
+    return render(request, 'mascotas/listado.html', { "mascotas":mascotas })
 
 
 

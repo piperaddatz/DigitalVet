@@ -17,7 +17,43 @@
 
     <div class="container" style="margin-top: 20px">
 
-        <table class="table">
+        <div class="row">
+            <div class="col-lg-2">
+                {% if user.rol == 'admin' %}
+                <a class="btn btn-primary" href="{% url 'vet:mascotas-crear' %}"><i class="fa fa-plus"></i> Agregar</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-secondary" href="{% url 'vet:mascotas-list' 'id' %}"><i class="fa fa-sort-desc"></i>
+                    ID</a>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-secondary" href="{% url 'vet:mascotas-list' 'nombre' %}"><i
+                        class="fa fa-sort-desc"></i> Nombre</a>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-secondary" href="{% url 'vet:mascotas-list' 'raza' %}"><i class="fa fa-sort-desc"></i>
+                    Raza</a>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-secondary" href="{% url 'vet:mascotas-list' 'especie' %}"><i
+                        class="fa fa-sort-desc"></i> Especie</a>
+            </div>
+        </div>
+
+        <form method="POST" action="#">
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" name="busqueda" placeholder="Ingresa un nombre...">
+                </div>
+                <div class="col-lg-3">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
+                        Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table" style="margin-top: 20px;">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -31,10 +67,11 @@
             <tbody>
                 {% for mascota in mascotas %}
                 <tr>
-                    
+
                     <th scope="row">{{ mascota.id }}</th>
                     {% if mascota.profile_pic %}
-                    <td><img src="{{mascota.profile_pic.url}}" width="80" height="80"  alt="" class="img-fluid radio"></td>
+                    <td><img src="{{mascota.profile_pic.url}}" width="80" height="80" alt="" class="img-fluid radio">
+                    </td>
                     {% else %}
                     <td></td>
                     {% endif %}
@@ -42,13 +79,16 @@
                     <td>{{ mascota.raza }}</td>
                     <td>{{ mascota.especie }}</td>
                     <td>
-                        {% if user.rol == 'admin'  %}
-                        <a class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger"><i class="fa fa-trash" style="color: white;"></i></a>
+                        {% if user.rol == 'admin' %}
+                        <a class="btn btn-secondary" href="{% url 'vet:mascotas-editar' mascota.id %}"><i
+                                class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:mascotas-eliminar' mascota.id %}"><i
+                                class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 
-                        {% if user.rol == 'cliente'  %}
-                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-list' mascota.id %}"><i class="fa fa-file"></i></a>
+                        {% if user.rol == 'cliente' %}
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-list' mascota.id %}"><i
+                                class="fa fa-file"></i></a>
                         {% endif %}
 
 

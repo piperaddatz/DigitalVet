@@ -23,7 +23,7 @@ class CustomUserChangeForm(UserChangeForm):
 class MascotaForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ('nombre', 'especie', 'raza')
+        fields = ('nombre', 'especie', 'raza', 'profile_pic')
         
 
     def __init__(self, *args,**kwargs):
@@ -31,6 +31,7 @@ class MascotaForm(forms.ModelForm):
         self.fields['nombre'].label = 'Nombre de la mascota:'
         self.fields['especie'].label = 'Especie:'
         self.fields['raza'].label = 'Raza:'
+        self.fields['profile_pic'].label = 'Foto:'
 
 
 

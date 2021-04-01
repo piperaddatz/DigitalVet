@@ -4,14 +4,27 @@ from .views import views
 app_name='vet'
 
 urlpatterns = [
+        # INICIO
         path(r'', views.index, name="index"),
-        path('mascotas/listado', views.mascotasListado, name="mascotas-list"),
-        path('mascotas/mismascotas', views.mascotaCliente, name="mascotas-cliente"), 
-        path('mascotas/crear', views.mascotasCrear, name="mascotas-crear"), 
+
+        # MASCOTA
+        path('mascotas/listado/<str:sort>', views.mascotasListado, name="mascotas-list"),
+        path('mascotas/mismascotas', views.mascotaCliente, name="mascotas-cliente"),
+        path('mascotas/crear', views.mascotasCrear, name="mascotas-crear"),
+        path('mascotas/editar/<int:idMascota>', views.mascotasEditar, name="mascotas-editar"),
+        path('mascotas/eliminar/<int:idMascota>', views.mascotasEliminar, name="mascotas-eliminar"),
+
+        # CLÍNICA
         path('clinica/listado', views.clinicaListado, name="clinica-list"),
+
+        # MÉDICO
         path('medicos/listado', views.medicosListado, name="medicos-list"),
+
+        # DIAGNÓSTICO
         path('diagnosticos/listado/<int:pk>/', views.diagnosticoListado, name="diagnostico-list"),
         path('diagnostico/detalle/<int:pk>', views.diagnosticoDetalle, name="diagnostico-detalle"),
+
+        # PERFIL
         path('accounts/profile/', views.PerfilUsuario, name='perfil'),
         path('accounts/salir/', views.salir, name='salir'),
 ]

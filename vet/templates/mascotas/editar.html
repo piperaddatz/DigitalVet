@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+
+    <header class="masthead text-white text-center hola" style="padding: 40px;">
+        <div class="overlay"></div>
+        <div class="container" style="height: 50px;">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Editar Mascota</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="margin-top: 20px">
+
+        <div class="container">
+            <h4>Editar Mascota</h4>
+
+            <form method="POST" action="#" id="groupForm">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre..." value="{{mascota.nombre}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre">Especie</label>
+                    <input type="text" class="form-control" name="especie" placeholder="Especie..." value="{{mascota.especie}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre">Raza</label>
+                    <input type="text" class="form-control" name="raza" placeholder="Raza..." value="{{mascota.raza}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="profile_pic">Foto</label>
+                    <input type="file" class="form-control" name="profile_pic">
+                </div>
+
+                <input type="submit" value="Editar" class="btn btn-primary btn-large">
+            </form>
+
+        </div>
+
+    </div>
+</body>
+
+{% endblock %}
