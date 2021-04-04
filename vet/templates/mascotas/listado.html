@@ -80,9 +80,11 @@
                     <td>{{ mascota.especie }}</td>
                     <td>
                         {% if user.rol == 'admin' %}
+                        <a class="btn btn-secondary" href="{% url 'vet:mascotas-detalle' mascota.id %}"><i
+                            class="fa fa-eye"></i></a>
                         <a class="btn btn-secondary" href="{% url 'vet:mascotas-editar' mascota.id %}"><i
                                 class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger" href="{% url 'vet:mascotas-eliminar' mascota.id %}"><i
+                        <a class="btn btn-danger" ><i
                                 class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 

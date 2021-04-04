@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from django import forms
 from . import models
-from .models import CustomUser, Mascota
+from .models import CustomUser, Mascota, Diagnostico
 
 
 
@@ -34,6 +34,10 @@ class MascotaForm(forms.ModelForm):
         self.fields['profile_pic'].label = 'Foto:'
 
 
+class DiagnosticoForm(forms.ModelForm):
+    class Meta:
+        model = Diagnostico
+        fields = ('titulo', 'descripcion','clinica')
 
 
 '''

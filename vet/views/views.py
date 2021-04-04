@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from ..forms import CustomUserCreationForm, MascotaForm
+from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -11,6 +11,10 @@ User = get_user_model()
 
 def index(request):
     return render(request, 'index.html', {})
+
+
+
+# Views de mascotas
 
 def mascotasListado(request, sort):
     if not request.user.is_authenticated:
@@ -48,6 +52,17 @@ def mascotasCrear(request):
             form = MascotaForm()
 
     return render(request, 'mascotas/crear.html', { 'form': form })
+
+
+def mascotasDetalle(request, idMascota):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+    
+    mascotaFound = Mascota.objects.get(id=idMascota)
+    
+    return render(request, 'mascotas/detalle.html', {  'mascota': mascotaFound })
+
+
 
 def mascotasEditar(request, idMascota):
     if not request.user.is_authenticated:
@@ -95,6 +110,12 @@ def mascotaCliente(request):
 
 
 
+
+
+
+
+
+
 def clinicaListado(request):
     clinicas = Clinica.objects.all()
     if not request.user.is_authenticated:
@@ -118,6 +139,8 @@ def medicosListado(request):
     
 
 
+###############    Views de diagnosticos
+
 
 def diagnosticoListado(request, pk):
     diagnosticos = Diagnostico.objects.filter(mascota=pk)
@@ -138,6 +161,85 @@ def diagnosticoDetalle(request, pk):
     print("USUARIO:", request.user.rol)
 
     return render(request, 'diagnosticos/detalle.html', {"diagnostico":diagnostico})
+
+
+
+def diagnosticoCrear(request, idMascota):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    form = DiagnosticoForm(request.POST)
+    clinicas = Clinica.objects.all()
+
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+            print('Formulario ok')
+            new_diagnostico = Diagnostico.objects.create(
+                    usuario = User.objects.get(pk=request.user.id),
+                    mascota = Mascota.objects.get(pk=idMascota),
+                    clinica = form.cleaned_data["clinica"],
+                    titulo = form.cleaned_data["titulo"],
+                    descripcion = form.cleaned_data["descripcion"],
+                    
+                )
+            new_diagnostico.save()
+            print('diagnostico guardado')
+            #return render(request, 'index.html', {})   
+            return redirect('/diagnosticos/listado/'+str(idMascota))
+
+        else:
+            print('formulario no valido')
+            form = DiagnosticoForm()
+
+    return render(request, 'diagnosticos/crear.html', { 'form': form, 'clinicas':clinicas })
+
+
+
+def diagnosticoEditar(request, idDiagnostico):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    diagnosticoFound = Diagnostico.objects.get(id=idDiagnostico)
+    form = DiagnosticoForm(request.POST)
+    clinicas = Clinica.objects.all()
+    idMascota = diagnosticoFound.mascota.id
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+
+            diagnosticoFound.titulo = form.cleaned_data["titulo"]
+            diagnosticoFound.descripcion = form.cleaned_data["descripcion"]
+            diagnosticoFound.clinica = form.cleaned_data["clinica"]
+            diagnosticoFound.save()
+ 
+            return redirect('/diagnosticos/listado/'+str(idMascota))
+
+        else:
+            form = DiagnosticoForm()
+
+    
+    return render(request, 'diagnosticos/editar.html', { 'form': form, 'diagnostico': diagnosticoFound, 'clinicas':clinicas })
+
+
+
+
+def diagnosticoEliminar(request,idDiagnostico):
+    diagnosticoFound = Diagnostico.objects.get(id=idDiagnostico)
+    idMascota = diagnosticoFound.mascota.id
+    diagnosticoFound.delete()
+    print('Id de la mascota: '+str(idMascota))
+    return redirect('/diagnosticos/listado/'+str(idMascota))
+
+
+
+
+
+###############    Views de Usuarios
 
 
 def PerfilUsuario(request):

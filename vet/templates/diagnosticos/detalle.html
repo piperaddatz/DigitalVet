@@ -20,16 +20,23 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Detalle</th>
-
+                    <th scope="col">ID</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Clinica</th>
+                    <th scope="col">Veterinario</th>
+                    <th scope="col">Fecha Creación</th>
                 </tr>
             </thead>
             <tbody>
                
                 <tr>
                     <th scope="row">{{ diagnostico.id }}</th>
+                    <td>{{ diagnostico.titulo }}</td>
                     <td>{{ diagnostico.descripcion }}</td>
+                    <td>{{ diagnostico.clinica }}</td>
+                    <td>{{ diagnostico.usuario }}</td>
+                    <td>{{ diagnostico.created_at }}</td>
 
                     <td>
                         {% if user.rol == 'admin'  %}

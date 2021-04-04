@@ -23,6 +23,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Titulo</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Clinica</th>
                     <th scope="col">Ver Descripción</th>
@@ -34,12 +35,14 @@
                     <th scope="row">{{ diagnostico.id }}</th>
                     <td>{{ diagnostico.mascota.nombre }}</td>
                     <td>{{ diagnostico.titulo }}</td>
+                    <td>{{ diagnostico.descripcion }}</td>
                     <td>{{ diagnostico.usuario}}</td>
                     <td>{{ diagnostico.clinica}}</td>
                     <td>
                         {% if user.rol == 'admin'  %}
-                        <a class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger"><i class="fa fa-trash" style="color: white;"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-detalle' diagnostico.id %}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-editar' diagnostico.id %}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:diagnostico-eliminar' diagnostico.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 
                         {% if user.rol == 'cliente'  %}
