@@ -24,17 +24,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 # CLÍNICA
 class Clinica(models.Model): 
     nombre = models.CharField(max_length=50) 
     direccion = models.TextField() 
     email = models.EmailField(max_length=50) 
     fono = models.CharField(max_length=15) 
-    profile_pic = models.ImageField() 
+    profile_pic = models.ImageField(upload_to='clinica_profile',blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self): 
         return self.nombre 
+
 
 # MASCOTA
 class Mascota(models.Model):

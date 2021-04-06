@@ -17,6 +17,10 @@ urlpatterns = [
 
         # CLÍNICA
         path('clinica/listado', views.clinicaListado, name="clinica-list"),
+        path('clinica/crear', views.clinicaCrear, name="clinica-crear"),
+        path('clinica/editar/<int:idClinica>', views.clinicaEditar, name="clinica-editar"),
+        path('clinica/detalle/<int:idClinica>', views.clinicaDetalle, name="clinica-detalle"),
+        path('clinica/eliminar/<int:idClinica>', views.clinicaEliminar, name="clinica-eliminar"),
 
         # MÉDICO
         path('medicos/listado', views.medicosListado, name="medicos-list"),

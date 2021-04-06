@@ -31,18 +31,26 @@
                 {% for clinica in clinicas %}
                 <tr>
                     <th scope="row">{{ clinica.id }}</th>
+                    {% if clinica.profile_pic %}
                     <td><img src="{{clinica.profile_pic.url}}" width="80" height="80"  alt="" class="img-fluid radio"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>{{ clinica.nombre }}</td>
                     <td>{{ clinica.direccion }}</td>
                     <td>{{ clinica.email }}</td>
                     <td>
-                        <a class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger"><i class="fa fa-trash" style="color: white;"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:clinica-detalle' clinica.id %}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:clinica-editar' clinica.id %}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:clinica-eliminar' clinica.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+                    <div style="margin-top: 50px;">
+                        <a class="btn btn-primary" href="{% url 'vet:clinica-crear'  %}"><i class="fa fa-plus"></i> Crear Clinica</a>
+                    </div>
 
     </div>
 </body>

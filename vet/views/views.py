@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm
+from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -14,7 +14,8 @@ def index(request):
 
 
 
-# Views de mascotas
+
+###########################     Views de mascotas     #######################
 
 def mascotasListado(request, sort):
     if not request.user.is_authenticated:
@@ -111,9 +112,7 @@ def mascotaCliente(request):
 
 
 
-
-
-
+###########################     Views de Clinicas     #######################
 
 
 def clinicaListado(request):
@@ -126,6 +125,86 @@ def clinicaListado(request):
     return render(request, 'clinicas/listado.html', {"clinicas":clinicas})
 
 
+def clinicaCrear(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    form = ClinicaForm(request.POST)
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+
+            new_clinica = Clinica.objects.create(
+                    nombre = form.cleaned_data["nombre"],
+                    direccion = form.cleaned_data["direccion"],
+                    email = form.cleaned_data["email"],
+                    fono = form.cleaned_data["fono"],
+                                )
+            new_clinica.save()
+            #return render(request, 'index.html', {})   
+            return redirect('/clinica/listado')
+
+        else:
+            print('formulario rechazado')
+            form = ClinicaForm()
+
+    return render(request, 'clinicas/crear.html', { 'form': form })
+
+
+def clinicaEditar(request, idClinica):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    clinicaFound = Clinica.objects.get(id=idClinica)
+    
+    form = ClinicaForm(request.POST)
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+
+            clinicaFound.nombre = form.cleaned_data["nombre"]
+            clinicaFound.direccion = form.cleaned_data["direccion"]
+            clinicaFound.email = form.cleaned_data["email"]
+            clinicaFound.fono = form.cleaned_data["fono"]
+            clinicaFound.save()
+ 
+            return redirect('/clinica/listado')
+
+        else:
+            form = clinicaForm()
+
+    
+    return render(request, 'clinicas/editar.html', { 'form': form, 'clinica': clinicaFound })
+
+
+
+def clinicaDetalle(request, idClinica):
+    clinicas = Clinica.objects.filter(id=idClinica)
+    clinica = clinicas[0]
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    print("USUARIO:", request.user.rol)
+
+    return render(request, 'clinicas/detalle.html', {"clinica":clinica})
+
+
+
+def clinicaEliminar(request, idClinica):
+    clinicaFound = Clinica.objects.get(id=idClinica)
+
+    clinicaFound.delete()
+
+    return redirect('/clinica/listado')
+
+
+
+
+###########################     Views de Medicos    #######################
 
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
@@ -139,7 +218,7 @@ def medicosListado(request):
     
 
 
-###############    Views de diagnosticos
+#########################    Views de Diagnosticos    #######################
 
 
 def diagnosticoListado(request, pk):
