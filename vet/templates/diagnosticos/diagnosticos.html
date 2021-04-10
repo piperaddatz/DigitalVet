@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<script>
+    $(document).ready(function () {
+        $('#diagnosticosTable').DataTable();
+    });
+</script>
+
 <body>
 
     <header class="masthead text-white text-center hola" style="padding: 40px;">
@@ -17,7 +23,7 @@
 
     <div class="container" style="margin-top: 20px">
 
-        <table class="table">
+        <table class="table" id="diagnosticosTable">
             <thead>
                 <tr>
                     <th scope="col">#</th>

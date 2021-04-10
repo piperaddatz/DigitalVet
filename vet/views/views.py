@@ -33,7 +33,7 @@ def mascotasCrear(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    form = MascotaForm(request.POST)
+    form = MascotaForm(request.POST, request.FILES)
 
     print("USUARIO:", request.user.rol)
      
@@ -73,7 +73,7 @@ def mascotasEditar(request, idMascota):
 
     mascotaFound = Mascota.objects.get(id=idMascota)
     
-    form = MascotaForm(request.POST)
+    form = MascotaForm(request.POST, request.FILES)
 
     print("USUARIO:", request.user.rol)
      
@@ -83,6 +83,7 @@ def mascotasEditar(request, idMascota):
             mascotaFound.nombre = form.cleaned_data["nombre"]
             mascotaFound.especie = form.cleaned_data["especie"]
             mascotaFound.raza = form.cleaned_data["raza"]
+            mascotaFound.profile_pic = request.FILES.get('profile_pic')
 
             mascotaFound.save()
  

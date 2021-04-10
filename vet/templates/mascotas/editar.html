@@ -20,17 +20,19 @@
         <div class="container">
             <h4>Editar Mascota</h4>
 
-            <form method="POST" action="#" id="groupForm">
+            <form method="POST" action="#" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombre..." value="{{mascota.nombre}}">
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre..."
+                        value="{{mascota.nombre}}">
                 </div>
 
                 <div class="form-group">
                     <label for="nombre">Especie</label>
-                    <input type="text" class="form-control" name="especie" placeholder="Especie..." value="{{mascota.especie}}">
+                    <input type="text" class="form-control" name="especie" placeholder="Especie..."
+                        value="{{mascota.especie}}">
                 </div>
 
                 <div class="form-group">
@@ -39,8 +41,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="profile_pic">Foto</label>
-                    <input type="file" class="form-control" name="profile_pic">
+                    <label for="nombre">Foto</label>
+                    <img src="{{mascota.profile_pic.url}}" height="140" width="140" class="radius" alt="User-Profile-Image" id="old_profile_pic">
+
+                    <script>
+                        function eliminarFoto() {
+                            $("#old_profile_pic").css("display", "none");
+                            console.log($("#id_profile_pic").val());
+                        }
+                    </script>
+
+                    <label for="nombre">Cambiar</label>
+                    <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic" onchange="eliminarFoto()">
                 </div>
 
                 <input type="submit" value="Editar" class="btn btn-primary btn-large">
