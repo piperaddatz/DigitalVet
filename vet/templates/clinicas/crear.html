@@ -30,7 +30,7 @@
             <form method="POST" action="#" id="groupForm">
                 {% csrf_token %}
 
-                <div class="row">
+         
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -57,7 +57,12 @@
                         </div>
                     </div>
                    
-                </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="fono">Profile Picture</label>
+                            <input type="file" class="form-control" name="profile_pic" >
+                        </div>
+                    </div>
 
 
                 <input type="submit" value="Crear" class="btn btn-primary btn-large">

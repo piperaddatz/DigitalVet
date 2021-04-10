@@ -43,7 +43,7 @@ class DiagnosticoForm(forms.ModelForm):
 class ClinicaForm(forms.ModelForm):
     class Meta:
         model = Clinica
-        fields = ('nombre','direccion','email','fono')
+        fields = ('nombre','direccion','email','fono','profile_pic')
 
 
 '''

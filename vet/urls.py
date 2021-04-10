@@ -31,6 +31,7 @@ urlpatterns = [
         path('diagnostico/crear/<int:idMascota>', views.diagnosticoCrear, name="diagnostico-crear"),
         path('diagnostico/editar/<int:idDiagnostico>', views.diagnosticoEditar, name="diagnostico-editar"),
         path('diagnostico/eliminar/<int:idDiagnostico>', views.diagnosticoEliminar, name="diagnostico-eliminar"),
+        path('diagnosticos/listado/', views.diagnosticoListadoAll, name="diagnosticos-list-all"),
 
         # PERFIL
         path('accounts/profile/', views.PerfilUsuario, name='perfil'),

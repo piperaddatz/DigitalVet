@@ -40,8 +40,8 @@
 
                     <td>
                         {% if user.rol == 'admin'  %}
-                        <a class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger"><i class="fa fa-trash" style="color: white;"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-editar' diagnostico.id %}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:diagnostico-eliminar' diagnostico.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django import forms
 from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm
-from ..models import CustomUser, Mascota, Clinica, Diagnostico
+from ..models import CustomUser, Mascota, Clinica, Diagnostico, Trabaja
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
@@ -11,6 +11,8 @@ User = get_user_model()
 
 def index(request):
     return render(request, 'index.html', {})
+
+
 
 
 
@@ -141,6 +143,7 @@ def clinicaCrear(request):
                     direccion = form.cleaned_data["direccion"],
                     email = form.cleaned_data["email"],
                     fono = form.cleaned_data["fono"],
+                    profile_pic = form.cleaned_data["profile_pic"],
                                 )
             new_clinica.save()
             #return render(request, 'index.html', {})   
@@ -194,6 +197,7 @@ def clinicaDetalle(request, idClinica):
 
 
 
+
 def clinicaEliminar(request, idClinica):
     clinicaFound = Clinica.objects.get(id=idClinica)
 
@@ -208,12 +212,17 @@ def clinicaEliminar(request, idClinica):
 
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
+    trabaja = Trabaja.objects.all()
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
     print("USUARIO:", request.user.rol)
 
-    return render(request, 'medicos/listado.html', {"users":users})
+    return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja })
+
+
+
+
 
     
 
@@ -314,6 +323,15 @@ def diagnosticoEliminar(request,idDiagnostico):
     print('Id de la mascota: '+str(idMascota))
     return redirect('/diagnosticos/listado/'+str(idMascota))
 
+
+def diagnosticoListadoAll(request):
+    diagnosticos = Diagnostico.objects.all()
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    print("USUARIO:", request.user.rol)
+
+    return render(request, 'diagnosticos/diagnosticos.html', {"diagnosticos":diagnosticos})
 
 
 
