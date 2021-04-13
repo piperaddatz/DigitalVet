@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm, MedicoForm
+from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm, MedicoForm, TrabajaForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico, Trabaja
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -267,6 +267,7 @@ def clinicaEliminar(request, idClinica):
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
     trabaja = Trabaja.objects.all()
+    
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
@@ -283,6 +284,8 @@ def medicoCrear(request):
         return redirect('/accounts/login/')
 
     form = MedicoForm(request.POST)
+    form2 = TrabajaForm(request.POST)
+
     clinicas = Clinica.objects.all()
 
 
@@ -298,23 +301,22 @@ def medicoCrear(request):
                     rol = form.cleaned_data["rol"],
                                    
                 )
-            
-            
-            idClinica = int(form.cleaned_data["clinica"])
-            print(idClinica)
+         
+            new_medico.save()
+
+        if form2.is_valid():
+            print('Formulario ok')
             new_trabaja = Trabaja.objects.create(
                     usuario = User.objects.last(),
-                    clinica = Clinica.objects.get(pk=idClinica),
-                    
-                )
-
-            new_medico.save()
+                    clinica = form2.cleaned_data["clinica"],               
+                )    
+              
             new_trabaja.save()
 
 
             print('medico y trabaja guardado')
             #return render(request, 'index.html', {})   
-            return redirect('/medicos/listado/')
+            return redirect('/medicos/listado')
 
         else:
             print('formulario no valido')

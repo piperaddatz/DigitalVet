@@ -52,13 +52,14 @@ class Mascota(models.Model):
 
 # REGISTRO DE TRABAJO PARA MÉDICOS
 class Trabaja(models.Model):
-    fecha = models.DateField() 
+    fecha = models.DateField(auto_now_add=True) 
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
     clinica = models.ForeignKey(Clinica, on_delete=models.CASCADE) 
     created_at = models.DateField(auto_now_add=True)  
 
     def __str__(self): 
         return "Médico trabajador" 
+
 
 # DIAGNÓSTICO
 class Diagnostico(models.Model): 

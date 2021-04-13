@@ -1,2 +1,4 @@
-- Al seleccionar el medio, me tira al user del admin
-- Subir profiles pic
+To Fix
+
+- Al seleccionar el detalle del medico, me tira al detalle del user admin
+- 
