@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm
+from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm, MedicoForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico, Trabaja
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -11,6 +11,13 @@ User = get_user_model()
 
 def index(request):
     return render(request, 'index.html', {})
+
+
+
+
+
+
+
 
 
 
@@ -115,6 +122,30 @@ def mascotaCliente(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###########################     Views de Clinicas     #######################
 
 
@@ -209,6 +240,28 @@ def clinicaEliminar(request, idClinica):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###########################     Views de Medicos    #######################
 
 def medicosListado(request):
@@ -220,6 +273,82 @@ def medicosListado(request):
     print("USUARIO:", request.user.rol)
 
     return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja })
+
+
+
+
+
+def medicoCrear(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    form = MedicoForm(request.POST)
+    clinicas = Clinica.objects.all()
+
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if form.is_valid():
+            print('Formulario ok')
+            new_medico = CustomUser.objects.create(
+                    email = form.cleaned_data["email"],
+                    password = form.cleaned_data["password"],
+                    username = form.cleaned_data["username"],
+                    rol = form.cleaned_data["rol"],
+                                   
+                )
+            
+            
+            idClinica = int(form.cleaned_data["clinica"])
+            print(idClinica)
+            new_trabaja = Trabaja.objects.create(
+                    usuario = User.objects.last(),
+                    clinica = Clinica.objects.get(pk=idClinica),
+                    
+                )
+
+            new_medico.save()
+            new_trabaja.save()
+
+
+            print('medico y trabaja guardado')
+            #return render(request, 'index.html', {})   
+            return redirect('/medicos/listado/')
+
+        else:
+            print('formulario no valido')
+            form = MedicoForm()
+
+ 
+    return render(request, 'medicos/crear.html', { 'form': form, 'clinicas':clinicas })
+
+
+
+
+
+def medicoEliminar(request, idUser):
+    medicoFound = CustomUser.objects.get(id=idUser)
+
+    medicoFound.delete()
+
+    return redirect('/medicos/listado')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from django import forms
 from . import models
-from .models import CustomUser, Mascota, Diagnostico, Clinica
+from .models import CustomUser, Mascota, Diagnostico, Clinica, Trabaja
 
 
 
@@ -45,6 +45,18 @@ class ClinicaForm(forms.ModelForm):
         model = Clinica
         fields = ('nombre','direccion','email','fono','profile_pic')
 
+
+
+class MedicoForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'username', 'password', 'rol')      
+
+
+class TrabajaForm(forms.ModelForm):
+    class Meta:
+        model = Trabaja
+        fields = ('clinica',)  
 
 '''
 class UsuarioForm(forms.ModelForm):
