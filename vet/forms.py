@@ -50,7 +50,7 @@ class ClinicaForm(forms.ModelForm):
 class MedicoForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'password', 'rol')      
+        fields = ('email', 'username', 'password', 'rol', 'profile_pic')      
 
 
 class TrabajaForm(forms.ModelForm):

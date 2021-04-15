@@ -266,8 +266,12 @@ def clinicaEliminar(request, idClinica):
 
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
-    trabaja = Trabaja.objects.all()
     
+
+    for user in users:
+         trabaja = Trabaja.objects.get(usuario=user)
+         setattr(user, 'clinica', trabaja.clinica)
+
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
@@ -279,11 +283,38 @@ def medicosListado(request):
 
 
 
+def medicosClinica(request):
+    
+    trabaja = Trabaja.objects.get(usuario=request.user.pk) 
+    medicos = CustomUser.objects.filter(rol="medico")
+    medicosClinicaList = []
+    
+
+    for user in medicos:
+         trabajaMedicos = Trabaja.objects.get(usuario=user)
+         setattr(user, 'clinica', trabajaMedicos.clinica)
+         if trabajaMedicos.clinica == trabaja.clinica:
+             medicosClinicaList.append(user)
+
+
+
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    print("USUARIO:", request.user.rol)
+
+    return render(request, 'medicos/listado.html', {"users":medicosClinicaList , "trabajos":trabaja })
+
+
+
+
+
+
 def medicoCrear(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    form = MedicoForm(request.POST)
+    form = MedicoForm(request.POST, request.FILES)
     form2 = TrabajaForm(request.POST)
 
     clinicas = Clinica.objects.all()
@@ -299,7 +330,7 @@ def medicoCrear(request):
                     password = form.cleaned_data["password"],
                     username = form.cleaned_data["username"],
                     rol = form.cleaned_data["rol"],
-                                   
+                    profile_pic = form.cleaned_data["profile_pic"],             
                 )
          
             new_medico.save()

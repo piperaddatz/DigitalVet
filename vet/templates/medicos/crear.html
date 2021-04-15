@@ -28,7 +28,7 @@
                     <input type="submit" value="Create" class="btn btn-primary btn-large">
                 </form>-->
     
-                <form method="POST" action="#" id="groupForm">
+                <form method="POST" action="#" enctype="multipart/form-data" id="groupForm">
                     {% csrf_token %}
                         
                             <div class="form-group" style="margin: 30px;">
@@ -54,6 +54,13 @@
                             <div class="form-group" style="margin: 30px;">
                                 <label for="rol">Rol</label>
                                 <input type="text" class="form-control" name="rol" placeholder="rol">
+                            </div>
+
+                            <div class="col-lg-4">
+                                <p class="file-upload">Currently:
+                                    <label for="profile_pic">Foto</label>
+                                    <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic">
+                                </p>
                             </div>
      
                             <select name="clinica" tyle="margin: 30px;">

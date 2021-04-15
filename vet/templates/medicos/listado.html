@@ -4,6 +4,12 @@
 
 <body>
 
+    <script>
+        $(document).ready(function () {
+            $('#medicoTable').DataTable();
+        });
+    </script>
+
     <header class="masthead text-white text-center hola" style="padding: 40px;">
         <div class="overlay"></div>
         <div class="container" style="height: 50px;">
@@ -15,9 +21,16 @@
         </div>
     </header>
 
+    <div class="container" style = "margin-top: 80px;">
+        {% if user.rol == 'admin'  %}
+        <a class="btn btn-primary" href="{% url 'vet:medico-crear'  %}"><i class="fa fa-plus"></i> Crear Medico</a>
+    
+        {% endif %}
+        </div>
+
     <div class="container" style="margin-top: 20px">
 
-        <table class="table">
+        <table class="table" id="medicoTable">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -41,7 +54,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.clinica }}</td>
-              
+                    
                     <td>
                        
                         <a class="btn btn-secondary" ><i class="fa fa-pencil"></i></a>
@@ -55,12 +68,7 @@
         </table>
 
    
-    <div style = "margin-top: 80px;">
-    {% if user.rol == 'admin'  %}
-    <a class="btn btn-primary" href="{% url 'vet:medico-crear'  %}"><i class="fa fa-plus"></i> Crear Medico</a>
 
-    {% endif %}
-    </div>
 
 </div>
 

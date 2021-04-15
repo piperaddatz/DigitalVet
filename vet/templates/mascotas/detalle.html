@@ -54,12 +54,14 @@
                     </div>
                 </div>
 
+                
                 <div class="row" style="margin-top: 80px"></div>
                 {% if user.rol == 'admin' %}
                 <a class="btn btn-primary" href="{% url 'vet:diagnostico-list' mascota.id  %}"><i class="fa fa-plus"></i> Ver Diagnosticos</a>
                 <a class="btn btn-primary" href="{% url 'vet:diagnostico-crear' mascota.id  %}"><i class="fa fa-plus"></i> Crear Diagnostico</a>
                 {% endif %}
                 </div>
+            
         </div>
 
     </div>
