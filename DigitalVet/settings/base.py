@@ -24,9 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'z*7yqr6kmlhj3j!2%agi-ig9v4b8lt0__48tcf_fcrv=po(5aq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -71,16 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DigitalVet.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 # User model
 AUTH_USER_MODEL = 'vet.CustomUser'
