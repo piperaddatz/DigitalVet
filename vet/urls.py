@@ -40,5 +40,6 @@ urlpatterns = [
 
         # PERFIL
         path('accounts/profile/', views.PerfilUsuario, name='perfil'),
+        path('accounts/edit/<int:idUser>', views.EditarUsuario, name='editar-perfil'),
         path('accounts/salir/', views.salir, name='salir'),
 ]

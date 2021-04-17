@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm, MedicoForm, TrabajaForm
+from ..forms import CustomUserCreationForm, MascotaForm, DiagnosticoForm, ClinicaForm, MedicoForm, TrabajaForm, CustomUserChangeForm
 from ..models import CustomUser, Mascota, Clinica, Diagnostico, Trabaja
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -275,7 +275,7 @@ def medicosListado(request):
         print(m.usuario)
         print(m.usuario.username)
         print(m.clinica)
-
+    '''
     q2 = Trabaja.objects.get(usuario__username='mraddatz')
     print("\nQ2", q2.usuario)
 
@@ -286,6 +286,7 @@ def medicosListado(request):
     print("\nQ4", q4)
 
     usuariosClinicaID = CustomUser.objects.filter(clinicas__id=9)
+    '''
 
     for user in users:
          trabaja = Trabaja.objects.get(usuario=user)
@@ -392,8 +393,13 @@ def medicoCrear(request):
  
     return render(request, 'medicos/crear.html', { 'form': form, 'clinicas':clinicas })
 
+
+
 def medicoDetalle(request, idUser):
     return redirect('/medicos/listado')
+
+
+
 
 def medicoEditar(request, idMedico):
     if not request.user.is_authenticated:
@@ -430,6 +436,8 @@ def medicoEditar(request, idMedico):
 
     
     return render(request, 'medicos/editar.html', { 'form': form, 'medico': medicoFound, 'clinicas':clinicas, 'clinicasTrabaja': clinicasTrabaja })
+
+
 
 
 def medicoEliminar(request, idUser):
@@ -581,3 +589,33 @@ def salir(request):
     logout(request)
     # Redirect to a success page.
     return redirect('/')
+
+
+
+def EditarUsuario(request, idUser):
+    
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+
+    FoundUser = CustomUser.objects.get(id=idUser)
+
+    form = CustomUserChangeForm(request.POST, request.FILES)
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if (form.is_valid()) or (form.is_valid() == False):
+
+            FoundUser.username = form.cleaned_data["username"]
+            FoundUser.mail = request.POST.get('email')
+            FoundUser.profile_pic = request.FILES.get('profile_pic')
+            FoundUser.save()
+ 
+            return redirect('/accounts/profile')
+
+        else:
+            form = CustomUserChangeForm()
+            print('datos no validos')
+    
+    return render(request, 'registration/edit.html', { 'form': form , 'user': FoundUser })
+       

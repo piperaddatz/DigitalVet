@@ -16,9 +16,30 @@
 
     <div class="container" style="margin-top: 20px">
 
-        <div class="container">
+        <div class="container" >
+
+         <div class="row" style="margin-bottom: 30px" ></div>   
+        {% if user.rol == 'admin' %}
+        <a class="btn btn-primary" href="{% url 'vet:diagnostico-list' mascota.id  %}"><i class="fa fa-plus"></i> Ver Diagnosticos</a>
+        <a class="btn btn-primary" href="{% url 'vet:diagnostico-crear' mascota.id  %}"><i class="fa fa-plus"></i> Crear Diagnostico</a>
+        {% endif %}
+       
+
+        {% if user.rol == 'admin' %}
+        <a class="btn btn-primary" href="{% url 'vet:diagnostico-list' mascota.id  %}"><i class="fa fa-plus"></i> Ver Diagnosticos</a>
+        <a class="btn btn-primary" href="{% url 'vet:diagnostico-crear' mascota.id  %}"><i class="fa fa-plus"></i> Crear Diagnostico</a>
+        {% endif %}
+       
+
+        {% if user.rol == 'cliente' %}
+        <a class="btn btn-primary" href="{% url 'vet:diagnostico-list' mascota.id  %}"><i class="fa fa-plus"></i> Ver Diagnosticos</a>
+        {% endif %}
+        
+
+
+        <div style="margin-top: 30px">
             
-            <h4>Detalle Mascota</h4>
+            <h4 >Detalle Mascota</h4>
            
                 <div class="col-md-4">
                     {% if mascota.profile_pic %}
@@ -56,14 +77,10 @@
 
                 
                 <div class="row" style="margin-top: 80px"></div>
-                {% if user.rol == 'admin' %}
-                <a class="btn btn-primary" href="{% url 'vet:diagnostico-list' mascota.id  %}"><i class="fa fa-plus"></i> Ver Diagnosticos</a>
-                <a class="btn btn-primary" href="{% url 'vet:diagnostico-crear' mascota.id  %}"><i class="fa fa-plus"></i> Crear Diagnostico</a>
-                {% endif %}
-                </div>
+
             
         </div>
-
+      </div>
     </div>
 </body>
 
