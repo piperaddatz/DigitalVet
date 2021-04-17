@@ -26,6 +26,8 @@ urlpatterns = [
         path('medicos/listado', views.medicosListado, name="medicos-list"),
         path('medicos/Clinica', views.medicosClinica, name="medicos-clinica"),
         path('medicos/crear', views.medicoCrear, name="medico-crear"),
+        path('medicos/detalle/<int:idMedico>', views.medicoDetalle, name="medico-detalle"),
+        path('medicos/editar/<int:idMedico>', views.medicoEditar, name="medico-editar"),
         path('medicos/eliminar/<int:idUser>', views.medicoEliminar, name="medico-eliminar"),
 
         # DIAGNÓSTICO

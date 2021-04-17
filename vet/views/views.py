@@ -5,6 +5,7 @@ from ..models import CustomUser, Mascota, Clinica, Diagnostico, Trabaja
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
+from pprint import pprint
 User = get_user_model()
 
 # Create your views here.
@@ -267,17 +268,44 @@ def clinicaEliminar(request, idClinica):
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
     
+    a1 = Trabaja.objects.all() # Using select_related
+    for m in a1:
+        print("\n>DOCUMENTO DE TRABAJO")
+        print(m.fecha)
+        print(m.usuario)
+        print(m.usuario.username)
+        print(m.clinica)
+
+    q2 = Trabaja.objects.get(usuario__username='mraddatz')
+    print("\nQ2", q2.usuario)
+
+    q3 = CustomUser.objects.filter(email__contains='@usuario.com')[0]
+    print("\nQ3", q3.username)
+
+    q4 = Trabaja.objects.filter(usuario__username__isnull=True)
+    print("\nQ4", q4)
+
+    usuariosClinicaID = CustomUser.objects.filter(clinicas__id=9)
 
     for user in users:
          trabaja = Trabaja.objects.get(usuario=user)
          setattr(user, 'clinica', trabaja.clinica)
 
+         excluirClinica = CustomUser.objects.exclude(clinicas=9)
+
+         #clinicas = user.clinicas.all()
+         #print("CLINICA DE USUARIO:", clinicas)
+
+    medicos = dict()
+    for med in CustomUser.objects.filter(rol="medico"):
+        medicos[med] = med.clinicas.all()
+
+    print(medicos)
+
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    print("USUARIO:", request.user.rol)
-
-    return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja })
+    return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja, "medicos": medicos })
 
 
 
@@ -327,12 +355,20 @@ def medicoCrear(request):
             print('Formulario ok')
             new_medico = CustomUser.objects.create(
                     email = form.cleaned_data["email"],
-                    password = form.cleaned_data["password"],
                     username = form.cleaned_data["username"],
-                    rol = form.cleaned_data["rol"],
-                    profile_pic = form.cleaned_data["profile_pic"],             
+                    rol = "medico",
+                    profile_pic = form.cleaned_data["profile_pic"],                 
                 )
          
+            # CLINICAS
+            clinicasList = form.cleaned_data["clinicas"]
+            print("clinicasList:", clinicasList)
+
+            for c in clinicasList:
+                print(c)
+                #clinicaFound = Clinica.objects.get(pk = c)
+                new_medico.clinicas.add(c)
+
             new_medico.save()
 
         if form2.is_valid():
@@ -356,8 +392,44 @@ def medicoCrear(request):
  
     return render(request, 'medicos/crear.html', { 'form': form, 'clinicas':clinicas })
 
+def medicoDetalle(request, idUser):
+    return redirect('/medicos/listado')
 
+def medicoEditar(request, idMedico):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
 
+    medicoFound = CustomUser.objects.get(id=idMedico)
+    clinicas = list(Clinica.objects.all())
+    clinicasTrabaja = medicoFound.clinicas.all()
+    
+    form = MedicoForm(request.POST, request.FILES)
+
+    print("USUARIO:", request.user.rol)
+     
+    if request.method == 'POST':
+        if (form.is_valid()) or (form.is_valid() == False):
+
+            medicoFound.email = request.POST.get('email')
+            medicoFound.username = form.cleaned_data["username"]
+            #medicoFound.profile_pic = request.FILES.get('profile_pic')
+
+            # CLINICAS
+            clinicasList = form.cleaned_data["clinicas"]
+            print("clinicasList:", clinicasList)
+            medicoFound.clinicas.set(clinicasList)
+
+            medicoFound.save()
+ 
+            return redirect('/medicos/listado')
+
+        else:
+            print("FORM NOT VALID:")
+            
+    form = MedicoForm()
+
+    
+    return render(request, 'medicos/editar.html', { 'form': form, 'medico': medicoFound, 'clinicas':clinicas, 'clinicasTrabaja': clinicasTrabaja })
 
 
 def medicoEliminar(request, idUser):

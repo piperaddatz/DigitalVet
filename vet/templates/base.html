@@ -112,19 +112,19 @@
           <!-- CLÍNICA  (TODOS) -->
           {% if user.rol == 'cliente' %}
           <li class="nav-item">
-            <a class="nav-link" href="#"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínica</a>
+            <a class="nav-link" href="#"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínicas</a>
           </li>
           {% else %}
           {% endif %}
           {% if user.rol == 'medico' %}
           <li class="nav-item">
-            <a class="nav-link" href="#"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínica</a>
+            <a class="nav-link" href="#"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínicas</a>
           </li>
           {% else %}
           {% endif %}
           {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vet:clinica-list' %}"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínica</a>
+            <a class="nav-link" href="{% url 'vet:clinica-list' %}"> <i class="fa fa-building" style="margin-right: 5px;"></i>Clínicas</a>
           </li>
           {% else %}
           {% endif %}
@@ -167,7 +167,7 @@
 
 
 
-  <footer class="footer backg">
+  <footer class="footer backg" style="position: initial;margin-top: 20px;">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">

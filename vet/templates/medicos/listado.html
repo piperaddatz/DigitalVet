@@ -21,12 +21,13 @@
         </div>
     </header>
 
-    <div class="container" style = "margin-top: 80px;">
-        {% if user.rol == 'admin'  %}
-        <a class="btn btn-primary" href="{% url 'vet:medico-crear'  %}"><i class="fa fa-plus"></i> Crear Medico</a>
-    
+    <div class="container" style="margin-top: 20px">
+        {% if user.rol == 'admin' %}
+        <a class="btn btn-block btn-primary" href="{% url 'vet:medico-crear'  %}"><i class="fa fa-plus"></i> Crear
+            Médico</a>
+
         {% endif %}
-        </div>
+    </div>
 
     <div class="container" style="margin-top: 20px">
 
@@ -42,35 +43,67 @@
                 </tr>
             </thead>
             <tbody>
+                <!--
                 {% for user in users %}
-                   
+
                 <tr>
                     <th scope="row">{{ user.id }}</th>
                     {% if user.profile_pic %}
-                    <td><a href="{% url 'vet:perfil' %}"><img src="{{user.profile_pic.url}}" width="80" height="80"  alt="" class="img-fluid radio"></a></td>
+                    <td><a href="{% url 'vet:perfil' %}"><img src="{{user.profile_pic.url}}" width="80" height="80"
+                                alt="" class="img-fluid radio"></a></td>
                     {% else %}
                     <td></td>
                     {% endif %}
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.clinica }}</td>
-                    
+                    <td>{{ user.clinica }} {{user.clinicas}}</td>
+
                     <td>
-                       
-                        <a class="btn btn-secondary" ><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger" href="{% url 'vet:medico-eliminar' user.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
-                        
+
+                        <a class="btn btn-warning"><i class="fa fa-pencil" style="color: white;"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:medico-eliminar' user.id %}"><i class="fa fa-trash"
+                                style="color: white;"></i></a>
+
                     </td>
                 </tr>
-            
+
+                {% endfor %}
+            -->
+
+                {% for med, clinicas in medicos.items %}
+
+                <tr>
+                    <th scope="row">{{ med.id }}</th>
+                    {% if med.profile_pic %}
+                    <td><a href="{% url 'vet:perfil' %}"><img src="{{med.profile_pic.url}}" width="80" height="80"
+                                alt="" class="img-fluid radio"></a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>{{ med.username }}</td>
+                    <td>{{ med.email }}</td>
+                    <td>
+                        {% for cli in clinicas %}
+                            {{cli}}<br>
+                        {% endfor %}
+                    </td>
+
+                    <td>
+
+                        <a class="btn btn-warning" href="{% url 'vet:medico-editar' med.id %}"><i class="fa fa-pencil" style="color: white;"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:medico-eliminar' med.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
+
+                    </td>
+                </tr>
+
                 {% endfor %}
             </tbody>
         </table>
 
-   
 
 
-</div>
+
+    </div>
 
 </body>
 

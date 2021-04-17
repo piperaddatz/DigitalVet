@@ -19,7 +19,7 @@
     <div class="container" style="margin-top: 40px">
 
         <div class="container" style="margin-bottom: 40px;"></div>
-        <h4>Nuevo Medico</h4>
+        <h4>Editar Medico</h4>
 
         <form method="POST" action="#" enctype="multipart/form-data" id="groupForm">
             {% csrf_token %}
@@ -28,13 +28,19 @@
                 <div class="col-lg-4">
                     <div class="form-group" style="margin: 30px;">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{medico.email}}" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group" style="margin: 30px;">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" placeholder="username" required>
+                        <input type="text" class="form-control" name="username" placeholder="username" value="{{medico.username}}" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin: 30px;">
+                        <label for="rol">Rol</label>
+                        <input type="text" class="form-control" name="rol" placeholder="rol" value="medico" value="{{medico.rol}}" required>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -47,6 +53,10 @@
                                         {% for clinica in clinicas %}
                                         <option value="{{ clinica.pk }}">{{ clinica.nombre }}</option>
                                         {% endfor %}
+
+                                        {% for clinica in clinicasTrabaja %}
+                                        <option selected value="{{ clinica.pk }}">{{ clinica.nombre }}</option>
+                                        {% endfor %}
         
                                     </select>
                                 </div>
@@ -56,25 +66,13 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="form-group" style="margin: 30px;">
-                        <p class="file-upload">Currently:
-                            <label for="profile_pic">Foto</label>
-                            <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic" required>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="form-group" style="margin: 30px;">
-                        <select name="clinica" tyle="margin: 30px;" required>
-                            {% for clinica in clinicas %}
-                            <option value="{{ clinica.pk }}">{{ clinica.nombre }} </option>
-                            {% endfor %}
-                        </select>
+                            <img src="{{medico.profile_pic.url}}" height="140" width="140" class="radius" alt="User-Profile-Image" id="old_profile_pic">
                     </div>
                 </div>
             </div>
 
             <div class="form-group" style="margin: 30px;">
-                <input type="submit" value="Crear" class="btn btn-primary btn-large">
+                <input type="submit" value="Editar" class="btn btn-primary btn-large">
             </div>
         </form>
 

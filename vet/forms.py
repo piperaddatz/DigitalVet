@@ -10,14 +10,14 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('email', 'username', 'rol')
+        fields = ('email', 'username', 'rol', 'clinicas')
 
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'rol')
+        fields = ('email', 'username', 'rol', 'clinicas')
 
 
 class MascotaForm(forms.ModelForm):
@@ -50,7 +50,7 @@ class ClinicaForm(forms.ModelForm):
 class MedicoForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'password', 'rol', 'profile_pic')      
+        fields = ('email', 'username', 'profile_pic', 'clinicas')      
 
 
 class TrabajaForm(forms.ModelForm):
