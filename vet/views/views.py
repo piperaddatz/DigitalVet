@@ -336,7 +336,26 @@ def medicosClinica(request):
 
 
 
+def medicosColegas(request):
 
+    Tclinica = Clinica.objects.get(customuser=request.user.pk)
+    print(Tclinica)
+    users = CustomUser.objects.filter(clinicas=Tclinica)
+    
+    for user in users:
+         
+         setattr(user, 'clinica', Tclinica.nombre)
+    
+
+
+    return render(request, 'medicos/colegas.html', {"users":users  })
+
+    
+
+
+
+
+    
 
 
 def medicoCrear(request):
