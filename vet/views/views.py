@@ -339,16 +339,18 @@ def medicosClinica(request):
 def medicosColegas(request):
 
     Tclinica = Clinica.objects.get(customuser=request.user.pk)
-    print(Tclinica)
     users = CustomUser.objects.filter(clinicas=Tclinica)
     
     for user in users:
+         clinicasUser = list(user.clinicas.all())         
          
-         setattr(user, 'clinica', Tclinica.nombre)
-    
+         print(clinicasUser)
+         clinicasNombres = []
+         for c in clinicasUser:
+             clinicasNombres.append(c.nombre)
+         setattr(user, 'clinicasNombres', clinicasNombres)
 
-
-    return render(request, 'medicos/colegas.html', {"users":users  })
+    return render(request, 'medicos/colegas.html', {"users":users })
 
     
 

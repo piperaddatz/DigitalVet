@@ -57,7 +57,8 @@
                         {% endif %}
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.clinica }}</td>
+                        
+                        <td>{% for c in user.clinicasNombres %}{{ c }} <br> {% endfor %}</td>
                         <td>
                      
                         </td>
