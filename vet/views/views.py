@@ -268,34 +268,17 @@ def clinicaEliminar(request, idClinica):
 def medicosListado(request):
     users = CustomUser.objects.filter(rol="medico")
     
-    a1 = Trabaja.objects.all() # Using select_related
-    for m in a1:
-        print("\n>DOCUMENTO DE TRABAJO")
-        print(m.fecha)
-        print(m.usuario)
-        print(m.usuario.username)
-        print(m.clinica)
-    '''
-    q2 = Trabaja.objects.get(usuario__username='mraddatz')
-    print("\nQ2", q2.usuario)
-
-    q3 = CustomUser.objects.filter(email__contains='@usuario.com')[0]
-    print("\nQ3", q3.username)
-
-    q4 = Trabaja.objects.filter(usuario__username__isnull=True)
-    print("\nQ4", q4)
-
-    usuariosClinicaID = CustomUser.objects.filter(clinicas__id=9)
-    '''
 
     for user in users:
-         trabaja = Trabaja.objects.get(usuario=user)
-         setattr(user, 'clinica', trabaja.clinica)
+        clinicasUser = list(user.clinicas.all())   
+        print(clinicasUser)
 
-         excluirClinica = CustomUser.objects.exclude(clinicas=9)
+        clinicasNombres = []
+        for c in clinicasUser:
+             clinicasNombres.append(c.nombre)
+        setattr(user, 'clinicasNombres', clinicasNombres)
 
-         #clinicas = user.clinicas.all()
-         #print("CLINICA DE USUARIO:", clinicas)
+
 
     medicos = dict()
     for med in CustomUser.objects.filter(rol="medico"):
@@ -306,7 +289,15 @@ def medicosListado(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja, "medicos": medicos })
+    return render(request, 'medicos/listado.html', {"users":users , "medicos": medicos })
+
+
+    
+  
+           
+    
+
+
 
 
 
