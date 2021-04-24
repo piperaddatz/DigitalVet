@@ -3,13 +3,12 @@ from .base import *
 
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['digitalvet.herokuapp.com']
 
-=======
+
+
 ALLOWED_HOSTS = []
 #'digitalvet.herokuapp.com'
->>>>>>> master
+
 
 
 # Database
