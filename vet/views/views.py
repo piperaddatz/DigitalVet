@@ -268,8 +268,6 @@ def clinicaEliminar(request, idClinica):
 def medicosListado(request):
     veterinarios = CustomUser.objects.filter(rol="medico")
     
-<<<<<<< HEAD
-
     for user in users:
         clinicasUser = list(user.clinicas.all())   
         print(clinicasUser)
@@ -279,11 +277,6 @@ def medicosListado(request):
              clinicasNombres.append(c.nombre)
         setattr(user, 'clinicasNombres', clinicasNombres)
 
-=======
-    for veterinario in veterinarios:
-         
-         setattr(veterinario, 'clinica', veterinario.username)
->>>>>>> master
 
 
     medicos = dict()
@@ -295,20 +288,11 @@ def medicosListado(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-<<<<<<< HEAD
+
     return render(request, 'medicos/listado.html', {"users":users , "medicos": medicos })
 
 
-    
-  
-           
-    
-=======
-    return render(request, 'medicos/listado.html', {"veterinarios":veterinarios , "medicos": medicos })
 
-
-
->>>>>>> master
 
 
 
