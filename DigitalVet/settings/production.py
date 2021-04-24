@@ -3,8 +3,13 @@ from .base import *
 
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['digitalvet.herokuapp.com']
 
+=======
+ALLOWED_HOSTS = []
+#'digitalvet.herokuapp.com'
+>>>>>>> master
 
 
 # Database
@@ -16,3 +21,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+STATICFILES_DIRS = (BASE_DIR, 'static')

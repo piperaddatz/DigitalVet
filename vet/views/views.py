@@ -266,8 +266,9 @@ def clinicaEliminar(request, idClinica):
 ###########################     Views de Medicos    #######################
 
 def medicosListado(request):
-    users = CustomUser.objects.filter(rol="medico")
+    veterinarios = CustomUser.objects.filter(rol="medico")
     
+<<<<<<< HEAD
 
     for user in users:
         clinicasUser = list(user.clinicas.all())   
@@ -278,6 +279,11 @@ def medicosListado(request):
              clinicasNombres.append(c.nombre)
         setattr(user, 'clinicasNombres', clinicasNombres)
 
+=======
+    for veterinario in veterinarios:
+         
+         setattr(veterinario, 'clinica', veterinario.username)
+>>>>>>> master
 
 
     medicos = dict()
@@ -289,6 +295,7 @@ def medicosListado(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
+<<<<<<< HEAD
     return render(request, 'medicos/listado.html', {"users":users , "medicos": medicos })
 
 
@@ -296,6 +303,12 @@ def medicosListado(request):
   
            
     
+=======
+    return render(request, 'medicos/listado.html', {"veterinarios":veterinarios , "medicos": medicos })
+
+
+
+>>>>>>> master
 
 
 
@@ -541,6 +554,7 @@ def diagnosticoCrear(request, idMascota):
 
 
 
+
 def diagnosticoEditar(request, idDiagnostico):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -577,6 +591,7 @@ def diagnosticoEliminar(request,idDiagnostico):
     diagnosticoFound.delete()
     print('Id de la mascota: '+str(idMascota))
     return redirect('/diagnosticos/listado/'+str(idMascota))
+
 
 
 def diagnosticoListadoAll(request):
