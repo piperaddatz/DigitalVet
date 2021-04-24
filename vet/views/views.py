@@ -266,11 +266,6 @@ def clinicaEliminar(request, idClinica):
 ###########################     Views de Medicos    #######################
 
 def medicosListado(request):
-    veterinarios = CustomUser.objects.filter(rol="medico")
-    
-    for veterinario in veterinarios:
-         
-         setattr(veterinario, 'clinica', veterinario.username)
 
 
     medicos = dict()
@@ -282,7 +277,7 @@ def medicosListado(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    return render(request, 'medicos/listado.html', {"veterinarios":veterinarios , "medicos": medicos })
+    return render(request, 'medicos/listado.html', { "medicos": medicos })
 
 
 
@@ -428,6 +423,24 @@ def medicoEliminar(request, idUser):
 
     return redirect('/medicos/listado')
 
+
+
+
+def medicosColegas(request):
+
+    Tclinica = Clinica.objects.get(customuser=request.user.pk)
+    users = CustomUser.objects.filter(clinicas=Tclinica)
+    
+    for user in users:
+         clinicasUser = list(user.clinicas.all())         
+         
+         print(clinicasUser)
+         clinicasNombres = []
+         for c in clinicasUser:
+             clinicasNombres.append(c.nombre)
+         setattr(user, 'clinicasNombres', clinicasNombres)
+
+    return render(request, 'medicos/colegas.html', {"users":users })
 
 
 
