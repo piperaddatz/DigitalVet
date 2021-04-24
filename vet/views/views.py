@@ -266,36 +266,12 @@ def clinicaEliminar(request, idClinica):
 ###########################     Views de Medicos    #######################
 
 def medicosListado(request):
-    users = CustomUser.objects.filter(rol="medico")
+    veterinarios = CustomUser.objects.filter(rol="medico")
     
-    a1 = Trabaja.objects.all() # Using select_related
-    for m in a1:
-        print("\n>DOCUMENTO DE TRABAJO")
-        print(m.fecha)
-        print(m.usuario)
-        print(m.usuario.username)
-        print(m.clinica)
-    '''
-    q2 = Trabaja.objects.get(usuario__username='mraddatz')
-    print("\nQ2", q2.usuario)
+    for veterinario in veterinarios:
+         
+         setattr(veterinario, 'clinica', veterinario.username)
 
-    q3 = CustomUser.objects.filter(email__contains='@usuario.com')[0]
-    print("\nQ3", q3.username)
-
-    q4 = Trabaja.objects.filter(usuario__username__isnull=True)
-    print("\nQ4", q4)
-
-    usuariosClinicaID = CustomUser.objects.filter(clinicas__id=9)
-    '''
-
-    for user in users:
-         trabaja = Trabaja.objects.get(usuario=user)
-         setattr(user, 'clinica', trabaja.clinica)
-
-         excluirClinica = CustomUser.objects.exclude(clinicas=9)
-
-         #clinicas = user.clinicas.all()
-         #print("CLINICA DE USUARIO:", clinicas)
 
     medicos = dict()
     for med in CustomUser.objects.filter(rol="medico"):
@@ -306,7 +282,12 @@ def medicosListado(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    return render(request, 'medicos/listado.html', {"users":users , "trabajos":trabaja, "medicos": medicos })
+    return render(request, 'medicos/listado.html', {"veterinarios":veterinarios , "medicos": medicos })
+
+
+
+
+
 
 
 
@@ -529,6 +510,7 @@ def diagnosticoCrear(request, idMascota):
 
 
 
+
 def diagnosticoEditar(request, idDiagnostico):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -565,6 +547,7 @@ def diagnosticoEliminar(request,idDiagnostico):
     diagnosticoFound.delete()
     print('Id de la mascota: '+str(idMascota))
     return redirect('/diagnosticos/listado/'+str(idMascota))
+
 
 
 def diagnosticoListadoAll(request):

@@ -3,8 +3,8 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['digitalvet.herokuapp.com']
-
+ALLOWED_HOSTS = []
+#'digitalvet.herokuapp.com'
 
 
 # Database
