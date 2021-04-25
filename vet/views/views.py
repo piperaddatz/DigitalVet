@@ -267,7 +267,6 @@ def clinicaEliminar(request, idClinica):
 
 def medicosListado(request):
 
-
     medicos = dict()
     for med in CustomUser.objects.filter(rol="medico"):
         medicos[med] = med.clinicas.all()
