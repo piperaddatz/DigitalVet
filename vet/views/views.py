@@ -428,12 +428,23 @@ def medicoEliminar(request, idUser):
 def medicosColegas(request):
 
     Mclinica = Clinica.objects.filter(customuser=request.user.pk)
-    ArrayClinicas = []
+    
 
     for cli in Mclinica:
-        ArrayClinicas.append(cli)
+        users = CustomUser.objects.filter(clinicas=cli,rol='medico')
+        print(users)
+        
+        for user in users:
+         clinicasUser = list(user.clinicas.all())         
+         
+         print(clinicasUser)
+         clinicasNombres = []
+         for c in clinicasUser:
+             clinicasNombres.append(c.nombre)
+         setattr(user, 'clinicasNombres', clinicasNombres)
 
-    print(ArrayClinicas)    
+    return render(request, 'medicos/colegas.html', {"users":users })
+   
 
     
     
