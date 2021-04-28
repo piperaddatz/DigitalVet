@@ -427,9 +427,19 @@ def medicoEliminar(request, idUser):
 
 def medicosColegas(request):
 
-    Tclinica = Clinica.objects.get(customuser=request.user.pk)
-    users = CustomUser.objects.filter(clinicas=Tclinica)
+    Mclinica = Clinica.objects.filter(customuser=request.user.pk)
+    ArrayClinicas = []
+
+    for cli in Mclinica:
+        ArrayClinicas.append(cli)
+
+    print(ArrayClinicas)    
+
     
+    
+
+
+    '''
     for user in users:
          clinicasUser = list(user.clinicas.all())         
          
@@ -440,7 +450,7 @@ def medicosColegas(request):
          setattr(user, 'clinicasNombres', clinicasNombres)
 
     return render(request, 'medicos/colegas.html', {"users":users })
-
+    '''
 
 
 
