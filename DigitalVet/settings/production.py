@@ -3,7 +3,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [digitalvet.herokuapp.com]
 #'digitalvet.herokuapp.com'
 
 
