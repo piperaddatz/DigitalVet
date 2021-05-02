@@ -111,6 +111,7 @@ def mascotasEliminar(request, idMascota):
 
     return redirect('/mascotas/listado/id')
 
+
 def mascotaCliente(request):
     mascotas = Mascota.objects.filter(user_id=request.user.id)
     if not request.user.is_authenticated:
@@ -280,6 +281,11 @@ def medicosListado(request):
 
 
 
+def medicoProfile(request, idUser):
+    
+    medicoFound = CustomUser.objects.get(id=idUser)
+        
+    return render(request, 'medicos/profile_med.html', { 'user': medicoFound })
 
 
 

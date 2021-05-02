@@ -15,7 +15,7 @@
         <div class="container" style="height: 50px;">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">users</h1>
+                    <h1 class="mb-5">Medicos que trabajan en tu Clinca </h1>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <tr>
                         <th scope="row">{{ user.id }}</th>
                         {% if user.profile_pic %}
-                        <td><a href="{% url 'vet:perfil' %}"><img src="{{user.profile_pic.url}}" width="80" height="80"
+                        <td><a href="{% url 'vet:medico-profile' user.id %}"><img src="{{user.profile_pic.url}}" width="80" height="80"
                                     alt="" class="img-fluid radio"></a></td>
                         {% else %}
                         <td></td>

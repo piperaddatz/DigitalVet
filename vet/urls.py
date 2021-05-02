@@ -29,6 +29,7 @@ urlpatterns = [
         path('medicos/detalle/<int:idMedico>', views.medicoDetalle, name="medico-detalle"),
         path('medicos/editar/<int:idMedico>', views.medicoEditar, name="medico-editar"),
         path('medicos/eliminar/<int:idUser>', views.medicoEliminar, name="medico-eliminar"),
+        path('medicos/profile/<int:idUser>', views.medicoProfile, name="medico-profile"),
 
         # DIAGNÓSTICO
         path('diagnosticos/listado/<int:pk>/', views.diagnosticoListado, name="diagnostico-list"),
