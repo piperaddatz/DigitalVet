@@ -266,3 +266,8 @@ body {
     font-weight: 600;
     color: #0062cc;
 }
+
+.p_detail {
+  font-size: 40px;
+  color: grey;
+}

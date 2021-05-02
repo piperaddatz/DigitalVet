@@ -51,6 +51,12 @@
                         <a class="btn btn-danger" href="{% url 'vet:diagnostico-eliminar' diagnostico.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 
+                        {% if user.rol == 'medico'  %}
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-detalle' diagnostico.id %}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-secondary" href="{% url 'vet:diagnostico-editar' diagnostico.id %}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:diagnostico-eliminar' diagnostico.id %}"><i class="fa fa-trash" style="color: white;"></i></a>
+                        {% endif %}
+
                         {% if user.rol == 'cliente'  %}
                         <a class="btn btn-secondary" href="{% url 'vet:diagnostico-detalle' diagnostico.id %}"><i class="fa fa-eye"></i></a>
                         {% endif %}

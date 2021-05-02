@@ -84,7 +84,7 @@
           {% endif %}
           {% if user.rol == 'medico' %}
           <li class="nav-item">
-            <a class="nav-link" href="#"> <i class="fa fa-th" style="margin-right: 5px;"></i>Diagnósticos</a>
+            <a class="nav-link" href="{% url 'vet:diagnosticos-list-all' %}"> <i class="fa fa-th" style="margin-right: 5px;"></i>Diagnósticos</a>
           </li>
           {% else %}
           {% endif %}

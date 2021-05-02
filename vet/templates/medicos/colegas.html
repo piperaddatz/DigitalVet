@@ -49,8 +49,8 @@
 
                     <tr>
                         <th scope="row">{{ user.id }}</th>
-                        {% if med.profile_pic %}
-                        <td><a href="{% url 'vet:perfil' %}"><img src="{{med.profile_pic.url}}" width="80" height="80"
+                        {% if user.profile_pic %}
+                        <td><a href="{% url 'vet:perfil' %}"><img src="{{user.profile_pic.url}}" width="80" height="80"
                                     alt="" class="img-fluid radio"></a></td>
                         {% else %}
                         <td></td>

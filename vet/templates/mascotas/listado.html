@@ -68,6 +68,17 @@
                                 class="fa fa-trash" style="color: white;"></i></a>
                         {% endif %}
 
+
+                        {% if user.rol == 'medico' %}
+                        <a class="btn btn-secondary" href="{% url 'vet:mascotas-detalle' mascota.id %}"><i
+                                class="fa fa-eye"></i></a>
+                        <a class="btn btn-warning" href="{% url 'vet:mascotas-editar' mascota.id %}"><i
+                                class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{% url 'vet:mascotas-eliminar' mascota.id %}"><i
+                                class="fa fa-trash" style="color: white;"></i></a>
+                        {% endif %}
+
+
                         {% if user.rol == 'cliente' %}
                         <a class="btn btn-secondary" href="{% url 'vet:diagnostico-list' mascota.id %}"><i
                                 class="fa fa-file"></i></a>
