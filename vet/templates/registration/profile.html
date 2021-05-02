@@ -17,52 +17,56 @@
 
     <div class="container" style="margin-top: 40px">
 
-        <div class="container" style="margin-top: 40px">
-
-            {% if user.rol == 'cliente'  %}
-            <a class="btn btn-secondary" href="{% url 'vet:editar-perfil' user.id %}"><i class="fa fa-pencil"></i></a>
-        
-            {% endif %}
-            
-            <h4>Perfil:</h4>
-           
+                        
+        <div class="row">
+            <div class="col-md-4">
+                <h2>{{user.username}}</h2>
                 <div class="col-md-4">
                     {% if user.profile_pic %}
-                    <img src="{{user.profile_pic.url}}" height="140" width="140" class="radius" alt="User-Profile-Image">
+                    <img src="{{user.profile_pic.url}}" height="280" width="280"  alt="User-Profile-Image">
                     {% endif %}
                 </div>
-            
-                <div class="row" style="margin-top: 40px">
-                    <div class="col-md-8">
-                        <h3>Usuario:  </h3>  
-                        {{user.username}}                 
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 10px">
-                    <div class="col-md-8">
-                        <h3>Rol </h3>  
-                        {{user.rol}}                 
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 10px">
-                    <div class="col-md-8">
-                        <h3>Email </h3>  
-                        {{user.email}}                 
-                    </div>
-                </div>
-
-                
-        </div>
-                </div>
-                {% if user.rol == 'medico' %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'vet:mascotas-crear' %}"> <i class="fa fa-list" style="margin-right: 5px;"></i>Crear Mascota</a>
-                </li>
-                {% endif %}
             </div>
+
+            <div style="margin-top: 50px;">
+            <div class="col-md-8">
+              
+                <div class="row">
+                   <h4 style="margin-right: 10px;">Usuario:</h4> 
+                   <p style="font-size: 20px; color: grey;">{{user.username}}  </p>
+                </div>  
+       
+                <div class="row">
+                    <h4 style="margin-right: 10px;">Rol:</h4> 
+                    <p style="font-size: 20px; color: grey;">{{user.rol}}</p>
+                </div>  
+     
+                <div class="row">
+                    <h4 style="margin-right: 10px;">Email:</h4> 
+                    <p style="font-size: 20px; color: grey;">{{user.email}}</p>
+                </div>  
+                
+
+    
+                
+                <div style="margin-top: 20px">
+                    {% if user.rol == 'medico' %}
+                    <li class="nav-item">
+                      <a class="btn btn-primary" href="{% url 'vet:mascotas-crear' %}"><i class="fa fa-plus"></i> Crear Mascota</a>
+                    </li>
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        
+        </div>
     </div>
+
+
+
+
+
+
 </body>
 
 
