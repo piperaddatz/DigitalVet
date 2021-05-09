@@ -3,7 +3,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['digitalvet.herokuapp.com']
 #'digitalvet.herokuapp.com'
 
 
@@ -12,8 +12,12 @@ ALLOWED_HOSTS = []
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': BASE_DIR / 'dcmubvcvtdam9t',
+        'USER': 'ebmixetjwrcwap',
+        'PASSWORD': '131e117d99c6a968110ebb47cd11fc06f1192492c6e6c7458fa4ac39da04b67f',
+        'HOST': 'ec2-18-206-20-102.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
